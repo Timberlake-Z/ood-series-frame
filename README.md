@@ -72,7 +72,7 @@ Test OOD Datasets
 After the preparation work, the whole project should have the following structure:
 
 ```
-./DOE
+./W-DOE
 ├── README.md
 ├── ckpt                            # datasets
 │   ├── cifar10_wrn_pretrained_epoch_99.pt 
@@ -83,33 +83,16 @@ After the preparation work, the whole project should have the following structur
 │   ├── display_results.py                        
 │   ├── utils_awp.py
 │   └── validation_dataset.py
-└── doe_final.py                    # training code
+└── wdoe_final.py                    # training code
 ```
 
 
 
 ## Training
 
-To train the DOE model on CIFAR benckmarks, simply run:
+To train the W-DOE model on CIFAR benckmarks, simply run:
 
-- CIFAR-10
-```train cifar10
-python doe_final.py cifar10 
+
 ```
-
-
-- CIFAR-100
-```train cifar100
-python doe_final.py cifar100
+python wdoe_final.py {dataset_name} --gamma={hyper_value} --warmup={warmup_value} --epochs={epoch_value} --learning_rate={learning_rate}
 ```
-
-## Results
-
-The key results on CIFAR benchmarks are listed in the following table. 
-
-|     | CIFAR-10 | CIFAR-10 | CIFAR-100 | CIFAR-100 |
-|:---:|:--------:|:--------:|:---------:|:---------:|
-|     |   FPR95  |   AUROC  |   FPR95   |   AUROC   |
-| MSP |   53.77  |   88.40  |   76.73   |   76.24   |
-|  OE |   12.41  |   97.85  |   45.68   |   87.61   |
-| DOE |   **5.15**   |   **98.78**  |   **25.38**   |   **93.97**   |
