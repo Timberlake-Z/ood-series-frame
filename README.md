@@ -21,7 +21,7 @@ year={2025},
 number={01},
 pages={1-14},
 doi={10.1109/TPAMI.2025.3531000},
-url = {https://doi.ieeecomputersociety.org/10.1109/TPAMI.2025.3531000},
+url={https://doi.ieeecomputersociety.org/10.1109/TPAMI.2025.3531000},
 publisher={IEEE},
 }
 ```
