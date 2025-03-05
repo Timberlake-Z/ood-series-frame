@@ -1,8 +1,8 @@
-# Out-of-distribution Detection with Implicit Outlier Transformation
+# W-DOE: Wasserstein Distribution-agnostic Outlier Exposure
 
-**[Out-of-distribution Detection with Implicit Outlier Transformation](https://openreview.net/forum?id=hdghx6wbGuD)**   (ICLR 2023)
+**[W-DOE: Wasserstein Distribution-agnostic Outlier Exposure](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10844561)**   (IEEE Transactions on Pattern Analysis and Machine Intelligence 2025)
 
-Qizhou Wang, Junjie Ye, Feng Liu, Quanyue Dai, Marcus Kalander, Tongliang Liu, Jianye Hao, and Bo Han. 
+Qizhou Wang, Bo Han, Yang Liu, Chen Gong, Tongliang Liu, Jiming Liu. 
 
 
 
@@ -10,17 +10,19 @@ Qizhou Wang, Junjie Ye, Feng Liu, Quanyue Dai, Marcus Kalander, Tongliang Liu, J
 **Keywords**: Out-of-distribution Detection, Reliable Machine Learning
 
 
-**Abstract**: Outlier exposure (OE) is powerful in out-of-distribution (OOD) detection, enhancing detection capability via model fine-tuning with surrogate OOD data. However, surrogate data typically deviate from test OOD data. Thus, the performance of OE when facing unseen OOD data, can be weaken. To address this issue, we propose a novel OE-based approach that makes the model perform well for unseen OOD situations, even for unseen OOD cases. It leads to a min-max learning scheme---searching to synthesize OOD data that leads to worst judgments and learning from such OOD data for the uniform performance in OOD detection. In our realization, these worst OOD data are synthesized by transforming original surrogate ones, where the associated transform functions are learned implicitly based on our novel insight that model perturbation leads to data transformation. Our methodology offers an efficient way of synthesizing OOD data, which can further benefit the detection model, besides the surrogate OOD data. We conduct extensive experiments under various OOD detection setups, demonstrating the effectiveness of our method against its advanced counterparts.
-
+**Abstract**: In open-world environments, classification models should be adept at identifying out-of-distribution (OOD) data whose semantics differ from in-distribution (ID) data, leading to the emerging research in OOD detection. As a promising learning scheme, outlier exposure (OE) enables the models to learn from auxiliary OOD data, enhancing model representations in discerning between ID and OOD patterns. However, these auxiliary OOD data often do not fully represent real OOD scenarios, potentially biasing our models in practical OOD detection. Hence, we propose a novel OE-based learning method termed Wasserstein Distribution-agnostic Outlier Exposure (W-DOE), which is both theoretically sound and experimentally superior to previous works. The intuition is that by expanding the coverage of training-time OOD data, the models will encounter fewer unseen OOD cases upon deployment. In W-DOE, we achieve additional OOD data to enlarge the OOD coverage, based on a new data synthesis approach called implicit data synthesis (IDS). It is driven by our new insight that perturbing model parameters can lead to implicit data transformation, which is simple to implement yet effective to realize. Furthermore, we suggest a general learning framework to search for the synthesized OOD data that can benefit the models most, ensuring the OOD performance for the enlarged OOD coverage measured by the Wasserstein metric. Our approach comes with provable guarantees for open-world settings, demonstrating that broader OOD coverage ensures reduced estimation errors and thereby improved generalization for real OOD cases. We conduct extensive experiments across a series of representative OOD detection setups, further validating the superiority of W-DOE against state-of-the-art counterparts in the field. 
 
 ```
-@inproceedings{
-wang2023outofdistribution,
-title={Out-of-distribution Detection with Implicit Outlier Transformation},
-author={Qizhou Wang and Junjie Ye and Feng Liu and Quanyu Dai and Marcus Kalander and Tongliang Liu and Jianye Hao and Bo Han},
-booktitle={International Conference on Learning Representations},
-year={2023},
-url={https://openreview.net/forum?id=hdghx6wbGuD}
+@ARTICLE{wang2025wdoe,
+author={Wang, Qizhou and Han, Bo and Liu, Yang and Gong, Chen and Liu, Tongliang and Liu, Jiming},
+journal={ IEEE Transactions on Pattern Analysis \& Machine Intelligence },
+title={{ W-DOE: Wasserstein Distribution-agnostic Outlier Exposure }},
+year={2025},
+number={01},
+pages={1-14},
+doi={10.1109/TPAMI.2025.3531000},
+url = {https://doi.ieeecomputersociety.org/10.1109/TPAMI.2025.3531000},
+publisher={IEEE},
 }
 ```
 
