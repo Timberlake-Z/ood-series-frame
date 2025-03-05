@@ -15,8 +15,8 @@ Qizhou Wang, Bo Han, Yang Liu, Chen Gong, Tongliang Liu, Jiming Liu.
 ```
 @ARTICLE{wang2025wdoe,
 author={Wang, Qizhou and Han, Bo and Liu, Yang and Gong, Chen and Liu, Tongliang and Liu, Jiming},
-journal={ IEEE Transactions on Pattern Analysis \& Machine Intelligence },
-title={{ W-DOE: Wasserstein Distribution-agnostic Outlier Exposure }},
+journal={IEEE Transactions on Pattern Analysis \& Machine Intelligence},
+title={W-DOE: Wasserstein Distribution-agnostic Outlier Exposure},
 year={2025},
 number={01},
 pages={1-14},
