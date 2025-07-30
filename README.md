@@ -22,9 +22,7 @@ This framework provides a single codebase to train, test, and compare two state-
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-pip install torch torchvision
+
 ```
 
 ### Basic Usage
