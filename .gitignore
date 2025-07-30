@@ -1,0 +1,129 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyTorch
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+ckpt/
+
+# Data directories and files
+data/
+../data/
+datasets/
+../datasets/
+
+# Specific dataset directories
+tiny-imagenet-200/
+80mn_cifar_idxs.txt
+tiny_images.bin
+cifar-10-batches-py/
+cifar-100-python/
+dtd/
+places365_standard/
+LSUN/
+LSUN_resize/
+iSUN/
+svhn/
+
+# Results and outputs
+results/
+logs/
+outputs/
+experiments/
+runs/
+wandb/
+tensorboard_logs/
+
+# Model checkpoints and weights
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pkl
+*.pickle
+models/cifar*.pt
+models/*_pretrained*.pt
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Large files and binaries
+*.bin
+*.dat
+*.idx
+*.npy
+*.npz
+
+# Compressed files
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+
+# Configuration files (optional, uncomment if needed)
+# config.json
+# settings.yaml
+
+# Experimental tracking
+mlruns/
+.mlflow/

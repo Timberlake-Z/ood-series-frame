@@ -94,43 +94,16 @@ class WideResNet(nn.Module):
         out = F.avg_pool2d(out, 8)
         out = out.view(-1, self.nChannels)
         return self.fc(out)
-    
+
     def pred_emb(self, x):
-        """Forward pass returning both predictions and embeddings (for DAL)."""
         out = self.conv1(x)
         out = self.block1(out)
         out = self.block2(out)
         out = self.block3(out)
         out = self.relu(self.bn1(out))
         out = F.avg_pool2d(out, 8)
-        emb = out.view(-1, self.nChannels)  # Embedding features
-        pred = self.fc(emb)  # Predictions
-        return pred, emb
-    
-    def feature_list(self, x):
-        """Forward pass returning features at different layers (for W-DOE)."""
-        features = []
-        
-        out = self.conv1(x)
-        features.append(out)
-        
-        out = self.block1(out)
-        features.append(out)
-        
-        out = self.block2(out)
-        features.append(out)
-        
-        out = self.block3(out)
-        features.append(out)
-        
-        out = self.relu(self.bn1(out))
-        out = F.avg_pool2d(out, 8)
-        emb = out.view(-1, self.nChannels)
-        features.append(emb)
-        
-        pred = self.fc(emb)
-        
-        return pred, features
+        out = out.view(-1, self.nChannels)
+        return self.fc(out), out
 
     def intermediate_forward_simple(self, x, layer_index=None):
         out = self.conv1(x)
@@ -148,3 +121,17 @@ class WideResNet(nn.Module):
         out = self.relu(self.bn1(out))
         return out
     
+    def feature_list(self, x):
+        out_list = [] 
+        out = self.conv1(x)
+        out = self.block1(out)
+        out_list.append(out)
+        out = self.block2(out)
+        out_list.append(out)
+        out = self.block3(out)
+        out_list.append(out)
+        out = self.relu(self.bn1(out))
+        out = F.avg_pool2d(out, 8)
+        out = out.view(-1, self.nChannels)
+        return self.fc(out), out_list
+         
