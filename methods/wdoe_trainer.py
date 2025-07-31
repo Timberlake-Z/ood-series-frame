@@ -148,24 +148,14 @@ class WDOETrainer(BaseTrainer):
         try:
             from data.test_loaders import get_test_loaders
             
-            # W-DOE uses comprehensive test datasets
-            test_datasets = ['dtd', 'svhn', 'isun', 'cifar_cross']
+            # W-DOE uses comprehensive test datasets including Places365 and LSUN
+            test_datasets = ['dtd', 'svhn', 'isun', 'cifar_cross', 'places365', 'lsun_c', 'lsun_r']
             
-            # Try to include additional datasets if available
-            try:
-                extended_datasets = ['dtd', 'svhn', 'isun', 'cifar_cross', 'places365', 'lsun_c', 'lsun_r']
-                self.test_loaders = get_test_loaders(
-                    datasets=extended_datasets,
-                    batch_size=self.args.test_bs,
-                    num_workers=self.args.num_workers
-                )
-            except:
-                # Fallback to basic datasets
-                self.test_loaders = get_test_loaders(
-                    datasets=test_datasets,
-                    batch_size=self.args.test_bs,
-                    num_workers=self.args.num_workers
-                )
+            self.test_loaders = get_test_loaders(
+                datasets=test_datasets,
+                batch_size=self.args.test_bs,
+                num_workers=self.args.num_workers
+            )
                 
         except ImportError:
             # Fallback to manual setup
@@ -186,7 +176,7 @@ class WDOETrainer(BaseTrainer):
         # Textures (DTD)
         try:
             texture_data = dset.ImageFolder(
-                root="../data/dtd/images",
+                root="./data/dtd/images",
                 transform=trn.Compose([
                     trn.Resize(32), trn.CenterCrop(32), 
                     trn.ToTensor(), trn.Normalize(mean, std)
@@ -202,7 +192,7 @@ class WDOETrainer(BaseTrainer):
         # SVHN
         try:
             svhn_data = svhn.SVHN(
-                root='../data/svhn/', split="test",
+                root='./data/svhn/', split="test",
                 transform=test_transform, download=True
             )
             self.test_loaders['svhn'] = torch.utils.data.DataLoader(
@@ -215,10 +205,56 @@ class WDOETrainer(BaseTrainer):
         # iSUN  
         try:
             isun_data = dset.ImageFolder(
-                root="../data/iSUN", transform=test_transform
+                root="./data/iSUN", transform=test_transform
             )
             self.test_loaders['isun'] = torch.utils.data.DataLoader(
                 isun_data, batch_size=self.args.test_bs, shuffle=True,
+                num_workers=4, pin_memory=False
+            )
+        except:
+            pass
+        
+        # Places365
+        try:
+            places365_data = dset.ImageFolder(
+                root="./data/places365_standard/",
+                transform=trn.Compose([
+                    trn.Resize(32), trn.CenterCrop(32),
+                    trn.ToTensor(), trn.Normalize(mean, std)
+                ])
+            )
+            self.test_loaders['places365'] = torch.utils.data.DataLoader(
+                places365_data, batch_size=self.args.test_bs, shuffle=True,
+                num_workers=4, pin_memory=False
+            )
+        except:
+            pass
+        
+        # LSUN-C
+        try:
+            lsunc_data = dset.ImageFolder(
+                root="./data/LSUN",
+                transform=trn.Compose([
+                    trn.Resize(32), trn.ToTensor(), trn.Normalize(mean, std)
+                ])
+            )
+            self.test_loaders['lsun_c'] = torch.utils.data.DataLoader(
+                lsunc_data, batch_size=self.args.test_bs, shuffle=True,
+                num_workers=4, pin_memory=False
+            )
+        except:
+            pass
+        
+        # LSUN-R
+        try:
+            lsunr_data = dset.ImageFolder(
+                root="./data/LSUN_resize",
+                transform=trn.Compose([
+                    trn.Resize(32), trn.ToTensor(), trn.Normalize(mean, std)
+                ])
+            )
+            self.test_loaders['lsun_r'] = torch.utils.data.DataLoader(
+                lsunr_data, batch_size=self.args.test_bs, shuffle=True,
                 num_workers=4, pin_memory=False
             )
         except:

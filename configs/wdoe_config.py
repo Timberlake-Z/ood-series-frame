@@ -12,10 +12,10 @@ class WDOEConfig(BaseConfig):
     
     # W-DOE specific parameters
     gamma: float = 0.5  # Regularization strength
-    warmup: int = 5     # Warmup epochs
+    warmup: int = 10    # Warmup epochs (num_warm in paper)
     
-    # W-DOE typically uses fewer epochs
-    epochs: int = 10
+    # W-DOE training epochs (paper: 15 for CIFAR, 6 for ImageNet)
+    epochs: int = 15
     
     # W-DOE specific settings
     auxiliary_data: str = 'tinyimagenet200'
@@ -64,22 +64,33 @@ class WDOEConfig(BaseConfig):
         """Get recommended configurations for different datasets."""
         configs = {}
         
-        # CIFAR-10 configuration
+        # CIFAR-10 configuration (paper settings)
         configs['cifar10'] = cls(
             dataset='cifar10',
             gamma=0.5,
-            warmup=5,
-            epochs=10,
-            learning_rate=0.01
+            warmup=10,
+            epochs=15,
+            learning_rate=0.005  # Paper: 0.005 for CIFAR
         )
         
-        # CIFAR-100 configuration  
+        # CIFAR-100 configuration (paper settings)
         configs['cifar100'] = cls(
             dataset='cifar100',
             gamma=0.5,
-            warmup=5,
-            epochs=10,
-            learning_rate=0.01
+            warmup=10,
+            epochs=15,
+            learning_rate=0.005  # Paper: 0.005 for CIFAR
+        )
+        
+        # ImageNet configuration (paper settings)
+        configs['imagenet'] = cls(
+            dataset='imagenet',
+            gamma=0.5,
+            warmup=6,   # Paper: num_warm=6 for ImageNet
+            epochs=6,   # Paper: 6 epochs for ImageNet
+            learning_rate=0.0001,  # Paper: 0.0001 for ImageNet
+            batch_size=64,  # Paper: 64 for both ID and OOD on ImageNet
+            oe_batch_size=64
         )
         
         return configs

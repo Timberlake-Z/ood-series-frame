@@ -47,10 +47,10 @@ def create_parser():
                        help='Random seed for reproducibility')
     
     # Training hyperparameters (shared)
-    parser.add_argument('--epochs', '-e', type=int, default=100,
-                       help='Number of training epochs')
-    parser.add_argument('--learning_rate', '-lr', type=float, default=0.01,
-                       help='Learning rate')
+    parser.add_argument('--epochs', '-e', type=int, default=None,
+                       help='Number of training epochs (method-specific defaults apply)')
+    parser.add_argument('--learning_rate', '-lr', type=float, default=None,
+                       help='Learning rate (method-specific defaults apply)')
     parser.add_argument('--batch_size', '-b', type=int, default=128,
                        help='Batch size for ID data')
     parser.add_argument('--oe_batch_size', type=int, default=256,
@@ -132,8 +132,15 @@ def apply_method_defaults(args):
         # W-DOE defaults
         if args.gamma is None:
             args.gamma = 0.5
-        if args.epochs == 100:  # If using default
-            args.epochs = 10  # W-DOE typically uses fewer epochs
+        if args.epochs is None:  # If not specified
+            args.epochs = 15  # W-DOE paper: 15 epochs for CIFAR
+        if args.learning_rate is None:  # If not specified
+            args.learning_rate = 0.005  # W-DOE paper: 0.005 for CIFAR
+        if args.warmup is None:
+            args.warmup = 10  # W-DOE paper: 10 warmup epochs
+        # W-DOE uses comprehensive test datasets
+        if args.test_datasets == ['dtd', 'svhn', 'isun', 'cifar_cross']:  # Default list
+            args.test_datasets = ['dtd', 'svhn', 'isun', 'cifar_cross', 'places365', 'lsun_c', 'lsun_r']
     
     elif args.method == 'dal':
         # DAL defaults
@@ -145,7 +152,9 @@ def apply_method_defaults(args):
             args.rho = 10.0
         if args.strength is None:
             args.strength = 1.0
-        if args.learning_rate == 0.01:  # If using default
+        if args.epochs is None:  # If not specified
+            args.epochs = 50  # DAL default
+        if args.learning_rate is None:  # If not specified
             args.learning_rate = 0.07  # DAL uses higher LR
     
     elif args.method == 'both':

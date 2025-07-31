@@ -108,43 +108,49 @@ class WideResNet(nn.Module):
         return pred, emb
     
     def feature_list(self, x):
-        """Forward pass returning features at different layers (for W-DOE)."""
-        features = []
+        """Forward pass returning features at different layers (for W-DOE).
+        
+        Returns features in the same format as original DAL implementation:
+        - features[0]: block1 output
+        - features[1]: block2 output  
+        - features[2]: block3 output (before final pooling)
+        
+        The final embedding is NOT included in the features list to maintain
+        compatibility with original W-DOE code that uses embs[-1].
+        """
+        out_list = []
         
         out = self.conv1(x)
-        features.append(out)
-        
         out = self.block1(out)
-        features.append(out)
+        out_list.append(out)
         
         out = self.block2(out)
-        features.append(out)
+        out_list.append(out)
         
         out = self.block3(out)
-        features.append(out)
+        out_list.append(out)
         
         out = self.relu(self.bn1(out))
         out = F.avg_pool2d(out, 8)
-        emb = out.view(-1, self.nChannels)
-        features.append(emb)
+        out = out.view(-1, self.nChannels)
         
-        pred = self.fc(emb)
-        
-        return pred, features
+        return self.fc(out), out
 
     def intermediate_forward_simple(self, x, layer_index=None):
+        """Return features after block3 but before final relu/bn (matches feature_list[-1])."""
         out = self.conv1(x)
         out = self.block1(out)
         out = self.block2(out)
         out = self.block3(out)
         out = self.relu(self.bn1(out))
-        return out
+        return out  # Return block3 output directly, before relu/bn
 
     def intermediate_forward(self, x, layer_index=None):
+        """Return features after block3 but before final relu/bn (matches feature_list[-1])."""
         out = self.conv1(x)
         out = self.block1(out)
         out = self.block2(out)
         out = self.block3(out)
         out = self.relu(self.bn1(out))
-        return out
+        return out  # Return block3 output directly, before relu/bn
     

@@ -91,15 +91,15 @@ class BaseTrainer(ABC):
         
         # CIFAR data
         if self.args.dataset == 'cifar10':
-            train_data_in = dset.CIFAR10('../data/cifarpy', train=True, 
+            train_data_in = dset.CIFAR10('./data/cifarpy', train=True, 
                                        transform=train_transform, download=True)
-            test_data = dset.CIFAR10('../data/cifarpy', train=False, 
+            test_data = dset.CIFAR10('./data/cifarpy', train=False, 
                                    transform=test_transform, download=True)
             self.num_classes = 10
         else:
-            train_data_in = dset.CIFAR100('../data/cifarpy', train=True, 
+            train_data_in = dset.CIFAR100('./data/cifarpy', train=True, 
                                         transform=train_transform, download=True)
-            test_data = dset.CIFAR100('../data/cifarpy', train=False, 
+            test_data = dset.CIFAR100('./data/cifarpy', train=False, 
                                     transform=test_transform, download=True)
             self.num_classes = 100
         
@@ -116,7 +116,7 @@ class BaseTrainer(ABC):
         if self.args.method == 'wdoe':
             # TinyImageNet-200 for W-DOE
             ood_data = dset.ImageFolder(
-                root="../data/tiny-imagenet-200/train/",
+                root="./data/tiny-imagenet-200/train/",
                 transform=trn.Compose([
                     trn.Resize(32), trn.RandomCrop(32, padding=4), 
                     trn.RandomHorizontalFlip(), trn.ToTensor(), 
@@ -138,7 +138,7 @@ class BaseTrainer(ABC):
             except:
                 print("Warning: Could not load 80M Tiny Images, using TinyImageNet as fallback")
                 ood_data = dset.ImageFolder(
-                    root="../data/tiny-imagenet-200/train/",
+                    root="./data/tiny-imagenet-200/train/",
                     transform=trn.Compose([
                         trn.Resize(32), trn.RandomCrop(32, padding=4), 
                         trn.RandomHorizontalFlip(), trn.ToTensor(), 
